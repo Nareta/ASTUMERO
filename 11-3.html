@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ATSUMERO</title>
+        <style>
+            *{margin: 0px;padding: 0px;}
+            button.button1 {
+                font-size: 1.4em;
+                font-weight: bold;
+                padding: 10px 30px;
+            }
+
+            button.button2 {
+                font-size: 1.4em;
+                font-weight: bold;
+                padding: 10px 30px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <p><center><font size="12">リンゴをクリックで集めろ！</font></center></p>
+        <br>
+        <font size="9">
+        <p id="score">タイムスコア:</p>
+        <p id="clear">クリア回数:</p>
+        </font>
+        <p><button  onclick="start();" class="button1">Start</button> <button onclick="finish1();" class="button2">Finish</button></p>
+        <p id="hit1" onclick="hit1();">🍎</p>
+        <p id="hit2" onclick="hit2();">🍎</p>
+        <p id="hit3" onclick="hit3();">🍎</p>
+        <p id="hit4" onclick="hit4();">🍎</p>
+        <p id="hit5" onclick="hit5();">🍎</p>
+
+        <script>
+            const SCORE=document.getElementById("score");
+            const CLEAR=document.getElementById("clear");
+            const HIT1=document.getElementById("hit1");
+            const HIT2=document.getElementById("hit2");
+            const HIT3=document.getElementById("hit3");
+            const HIT4=document.getElementById("hit4");
+            const HIT5=document.getElementById("hit5");
+            let startTime,finishTime,time,clear;
+            let x = new Array(5);
+            let y = new Array(5);
+            let hit11=0;
+            let hit12=0;
+            let hit13=0;
+            let hit14=0;
+            let hit15=0;
+            let point=0;
+            let start1=0;
+            if(localStorage.getItem("Clear")===null){
+                localStorage.setItem("Clear",0);
+            }
+            clear=localStorage.getItem("Clear");
+
+
+            function start(){
+                for(var i=0;i<5;i++){
+                    x[i] = Math.floor(Math.random()*1200);
+                    y[i] = Math.floor(Math.random()*500);
+                }
+                HIT1.style.transform="translate("+x[0]+"px,"+y[0]+"px)";
+                HIT2.style.transform="translate("+x[1]+"px,"+y[1]+"px)";
+                HIT3.style.transform="translate("+x[2]+"px,"+y[2]+"px)";
+                HIT4.style.transform="translate("+x[3]+"px,"+y[3]+"px)";
+                HIT5.style.transform="translate("+x[4]+"px,"+y[4]+"px)";
+                HIT1.innerHTML="🍎";
+                hit11=0;
+                HIT2.innerHTML="🍎";
+                hit12=0;
+                HIT3.innerHTML="🍎";
+                hit13=0;
+                HIT4.innerHTML="🍎";
+                hit14=0;
+                HIT5.innerHTML="🍎";
+                hit15=0;
+                const now = new Date();
+                startTime = now.getTime();
+                start1=1;
+                point=0;
+                localStorage.setItem("P",point);
+
+            }
+
+            function hit1(){
+                if(start1===1&&hit11===0){
+                    point++;
+                    localStorage.setItem("P",point);
+                    HIT1.innerHTML="BOOM";
+                    hit11=1;
+                }
+            }
+
+            function hit2(){
+                if(start1===1&&hit12===0){
+                    point++;
+                    localStorage.setItem("P",point);
+                    HIT2.innerHTML="BOOM";
+                    hit12=1;
+                }
+            }
+
+            function hit3(){
+                if(start1===1&&hit13===0){
+                    point++;
+                    localStorage.setItem("P",point);
+                    HIT3.innerHTML="BOOM";
+                    hit13=1;
+                }
+            }
+
+            function hit4(){
+                if(start1===1&&hit14===0){
+                    point++;
+                    localStorage.setItem("P",point);
+                    HIT4.innerHTML="BOOM";
+                    hit14=1;
+                }
+            }
+
+            function hit5(){
+                if(start1===1&&hit15===0){
+                    point++;
+                    localStorage.setItem("P",point);
+                    HIT5.innerHTML="BOOM";
+                    hit15=1;
+                }
+            }
+
+            function finish1(){
+                if(point===5){
+                    clear++;
+                    localStorage.setItem("Clear",clear);
+                    const now = new Date();
+                    finishTime = now.getTime();
+                    time=finishTime-startTime;
+                    time=time/1000;
+                    clear=localStorage.getItem("Clear");
+                    SCORE.innerHTML="タイムスコア:"+time;
+                    CLEAR.innerHTML="クリア回数:"+clear;
+                }
+            }
+        </script>
+    </body>
+</html>
